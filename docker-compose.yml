@@ -1,0 +1,30 @@
+version: '3.3'
+services:
+  db:
+    container_name: mongo
+    image: 'mongo:latest'
+    networks: 
+      - red
+    volumes:
+      - 'mi-volumen:/data/db'
+  back:
+    container_name: back
+    env_file: .env
+    networks: 
+      - red
+    ports: 
+      - "5000:5000"
+    build: .
+  front:
+    container_name: front
+    networks: 
+      - red
+    ports: 
+      - "80:80"
+    build: 
+      context: frontend
+
+networks: 
+  red:
+volumes: 
+  mi-volumen:
