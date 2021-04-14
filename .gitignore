@@ -23,4 +23,3 @@ package-lock.json
 
 # Env files
 .env
-.secret-user-sa.json

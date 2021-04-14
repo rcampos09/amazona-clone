@@ -16,16 +16,17 @@ Final project mern (amazona-clone) in order to dockerize and deploy in GCP (GKE)
 - Run project in docker-compose
 - Run project in GKE
 
-## Run Locally
-
-### 1. Clone repo
+### Firts Clone repo
 
 ```
 $ git clone https://github.com/rcampos09/amazona-clone
 $ cd amazona-clone
 ```
 
-### 2. Setup MongoDB
+
+## Run Locally
+
+### 1. Setup MongoDB
 
 - Local MongoDB
   - Install it from [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)
@@ -36,14 +37,14 @@ $ cd amazona-clone
   - Create .env file in root folder
   - Set MONGODB_URL_LOCAL=mongodb://localhost/amazona  
 
-### 3. Run Backend
+### 2. Run Backend
 
 ```
 $ npm install
 $ npm start
 ```
 
-### 4. Run Frontend
+### 3. Run Frontend
 
 ```
 # open new terminal
@@ -55,14 +56,7 @@ $ npm start
 
 ## Run Locally Docker-Compose
 
-### 1. Clone repo
-
-```
-$ git clone https://github.com/rcampos09/amazona-clone
-$ cd amazona-clone
-```
-
-### 2. Setup MongoDB
+### 1. Setup MongoDB
 
 - Local MongoDB
   - Install it from [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)
@@ -79,7 +73,7 @@ $ cd amazona-clone
   - Set DBPASSWORD= password data base Mongo Atlas
   - Set DBNAME= name data base Mongo Atlas
 
-### 3. Run docker-compose
+### 2. Run docker-compose
 
 ```
 # open new terminal
@@ -88,14 +82,7 @@ $ docker-compose up -d --build
 
 ## Run Deployment (GKE) GCP
 
-### 1. Clone repo
-
-```
-$ git clone https://github.com/rcampos09/amazona-clone
-$ cd amazona-clone
-```
-
-### 2. Setup MongoDB
+### 1. Setup MongoDB
 
 - Docker MongoDB 
   - Install it from [https://hub.docker.com/_/mongo](https://hub.docker.com/_/mongo)
@@ -108,7 +95,7 @@ $ cd amazona-clone
   - Set DBPASSWORD= password data base Mongo Atlas
   - Set DBNAME= name data base Mongo Atlas
 
-### 3. Configure Cluster (GKE) GCP for using in local
+### 2. Configure Cluster (GKE) GCP for using in local
 
 - Create Account in GCP (free)
   - [https://cloud.google.com/free/docs/gcp-free-tier](https://cloud.google.com/free/docs/gcp-free-tier)
@@ -131,7 +118,7 @@ $ cd amazona-clone
     gcloud container clusters get-credentials (name-cluster) --zone us-east1-b --project (name-project-id)
     ```
 
-### 4. Create images and push to (Container Registry) GCP from local
+### 3. Create images and push to (Container Registry) GCP from local
 
 - Create Images Local
 
@@ -155,14 +142,14 @@ $ cd amazona-clone
     cd path ./front
     docker push us.gcr.io/name-project-id/frontapp
     ```
-### 5. Create namespace (GKE) GCP
+### 4. Create namespace (GKE) GCP
 
     ```
     cd path ./
     kubectl create namespace amazona
     ```
 
-### 6. Create secret (GKE) GCP Opcional
+### 5. Create secret (GKE) GCP Opcional
 
 - Create secret for Mongo Atlas 
     ```
@@ -179,7 +166,7 @@ $ cd amazona-clone
     --from-literal=JWT_SECRET='secretJWT12345' -n amazona
     ```
 
-### 7. Create and apply Service Account (GKE) GCP
+### 6. Create and apply Service Account (GKE) GCP
 
 - Create secret for Mongo Atlas or Mongo local Pod
     - Install it from [https://cloud.google.com/iam/docs/creating-managing-service-accounts](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
@@ -188,7 +175,7 @@ $ cd amazona-clone
     gcloud auth activate-service-account user-gke-service-accounts@testkubernetes-01.iam.gserviceaccount.com --key-file=secret-user-sa.json
     ```
 
-### 8. Apply deployment (GKE) GCP Opcional
+### 7. Apply deployment (GKE) GCP Opcional
 
 - Apply deployment using Mongo Cloud
 
@@ -214,18 +201,19 @@ $ cd amazona-clone
     ./fronted
     kubectl apply -f deployment.yaml
     ```
-### 9. Check ip services app (website)
+### 8. Check ip services app (website)
 
   ![ Image 1](/images/1.png)
 
-### 10. Seed Users and Products
+
+## Seed Users and Products
 
 - Run this on chrome: http://localhost:5000/api/users/seed
 - It returns admin email and password
 - Run this on chrome: http://localhost:5000/api/products/seed
 - It creates 6 sample products
 
-### 11. Admin Login
+## Admin Login
 
 - Run http://localhost:3000/signin
 - Enter admin email and password and click signin
