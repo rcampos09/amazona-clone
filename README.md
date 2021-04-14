@@ -26,22 +26,25 @@ $ cd amazona-clone
 
 ## Run Locally
 
-### 1. Setup MongoDB
+### 1. Setup MongoDB opcional
 
-- Local MongoDB
-  - Install it from [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)
-  - Create .env file in root folder
-  - Set MONGODB_URL_LOCAL=mongodb://localhost/amazona  
 - Docker MongoDB 
-  - Install it from [https://hub.docker.com/_/mongo](https://hub.docker.com/_/mongo)
+  - [https://hub.docker.com/_/mongo](https://hub.docker.com/_/mongo)
+  
+- Atlas Cloud MongoDB
+  - Create database at [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
   - Create .env file in root folder
-  - Set MONGODB_URL_LOCAL=mongodb://localhost/amazona  
+  - Set DBUSER= user data base in Mongo Atlas
+  - Set DBPASSWORD= password data base Mongo Atlas
+  - Set DBNAME= name data base Mongo Atlas
+
+Note: in backend (server.js) connection for local check url of mongo for replace
 
 ### 2. Run Backend
 
 ```
 $ npm install
-$ npm start
+$ npm run start
 ```
 
 ### 3. Run Frontend
@@ -50,28 +53,25 @@ $ npm start
 # open new terminal
 $ cd frontend
 $ npm install
-$ npm start
+$ npm run start
 ```
-
 
 ## Run Locally Docker-Compose
 
-### 1. Setup MongoDB
+### 1. Setup MongoDB Opcional
 
-- Local MongoDB
-  - Install it from [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)
-  - Create .env file in root folder
-  - Set MONGODB_URL_LOCAL=mongodb://localhost/amazona  
-- Docker MongoDB 
-  - Install it from [https://hub.docker.com/_/mongo](https://hub.docker.com/_/mongo)
-  - Create .env file in root folder
-  - Set MONGODB_URL_LOCAL=mongodb://localhost/amazona  
-- Atlas Cloud MongoDB
+- Atlas Cloud MongoDB 
   - Create database at [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
   - Create .env file in root folder
   - Set DBUSER= user data base in Mongo Atlas
   - Set DBPASSWORD= password data base Mongo Atlas
   - Set DBNAME= name data base Mongo Atlas
+- Docker MongoDB 
+  - [https://hub.docker.com/_/mongo](https://hub.docker.com/_/mongo)
+  - Create .env file in root folder
+  - Set MONGODB_URL_LOCAL=mongodb://localhost/amazona  
+
+Note: Check .env-example for configure Opcion mongo
 
 ### 2. Run docker-compose
 
@@ -80,20 +80,19 @@ $ npm start
 $ docker-compose up -d --build
 ```
 
+Note: Check in folder frontend file nginx.conf for using docker compose
+
 ## Run Deployment (GKE) GCP
 
-### 1. Setup MongoDB
+### 1. Setup MongoDB Opcional
 
-- Docker MongoDB 
-  - Install it from [https://hub.docker.com/_/mongo](https://hub.docker.com/_/mongo)
-  - Create .env file in root folder
-  - Set MONGODB_URL_LOCAL=mongodb://localhost/amazona  
-- Atlas Cloud MongoDB
+- Atlas Cloud MongoDB 
   - Create database at [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
-  - Create .env file in root folder
   - Set DBUSER= user data base in Mongo Atlas
   - Set DBPASSWORD= password data base Mongo Atlas
   - Set DBNAME= name data base Mongo Atlas
+  
+  Note: For configure secret using this variable
 
 ### 2. Configure Cluster (GKE) GCP for using in local
 
@@ -154,9 +153,9 @@ $ docker-compose up -d --build
 - Create secret for Mongo Atlas 
     ```
     kubectl create secret generic db-credentials \
-    --from-literal=DBUSER=amazona_user \
-    --from-literal=DBPASSWORD=YRrxWTSiWSMqS8z \
-    --from-literal=DBNAME=amazona \
+    --from-literal=DBUSER=DBUSER \
+    --from-literal=DBPASSWORD=DBPASSWORD \
+    --from-literal=DBNAME=DBNAME \
     --from-literal=JWT_SECRET='secretJWT12345' -n amazona
     ```
 - Create secret for Mongo local pod
@@ -177,7 +176,7 @@ $ docker-compose up -d --build
 
 ### 7. Apply deployment (GKE) GCP Opcional
 
-- Apply deployment using Mongo Cloud
+- Apply deployment using Mongo Local
 
     ```
     ./backend
@@ -191,7 +190,7 @@ $ docker-compose up -d --build
     ./
     kubectl apply -f deployment.yaml
     ```
-- Apply deployment using Mongo Local
+- Apply deployment using Mongo Cloud
 
     ```
     ./backend
@@ -215,8 +214,10 @@ $ docker-compose up -d --build
 
 ## Admin Login
 
-- Run http://localhost:3000/signin
+- Run http://localhost:3000/signin 
 - Enter admin email and password and click signin
+
+Note: Opcional port if you using in local or if you deploment delete port.
 
 ### TASK Evaluation Project final
 
