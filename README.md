@@ -1,5 +1,5 @@
-# Amazona ECommerce Website
-Final project mern (amazona) in order to dockerize and deploy in GCP (GKE) in cluster varying everything learned in the course of (Docker-Kubernetes)
+# Amazona-clone ECommerce Website
+Final project mern (amazona-clone) in order to dockerize and deploy in GCP (GKE) in cluster varying everything learned in the course of (Docker-Kubernetes)
 
 ## Demo Website
 - 👉 GKE : [http://34.75.232.198/](http://34.75.232.198/)
