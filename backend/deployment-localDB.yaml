@@ -31,14 +31,19 @@ spec:
     spec:
       containers:
       - name: back
-        image: us.gcr.io/testkubernetes-01/back
-        #image: backapp
-        imagePullPolicy: Never
+        image: us.gcr.io/testkubernetes-01/backapp
+        # Using in Mongo Local
         env:
-          - name: MONGODB_URL_LOCAL
-            value: "mongodb://mi-servicio-mongo.amazona.svc.cluster.local:27017"
-          - name: JWT_SECRET
-            value: "secretJWT12345"                           
+        - name: MONGODB_URL_LOCAL
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: MONGODB_URL_LOCAL
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: JWT_SECRET                        
         ports:
         - containerPort: 5000
         volumeMounts:

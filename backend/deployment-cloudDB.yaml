@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-uploads
+  namespace: amazona
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deployment
+  namespace: amazona
+  labels:
+    tipo: back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tipo: back
+  template:
+    metadata:
+      labels:
+        tipo: back 
+    spec:
+      containers:
+      - name: back
+        image: us.gcr.io/testkubernetes-01/backapp
+        # Using in Mongo Atlas
+        env:
+        - name: DBUSER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: DBUSER
+        - name: DBPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: DBPASSWORD
+        - name: DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: DBNAME
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: JWT_SECRET                         
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+          - name: vol
+            mountPath: /usr/src/app/uploads
+      volumes:
+        - name: vol
+          persistentVolumeClaim:
+            claimName: pvc-uploads
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-servicio-back
+  namespace: amazona
+spec:
+  selector:
+    tipo: back
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP
