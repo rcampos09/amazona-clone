@@ -1,4 +1,0 @@
-notes:
-gcloud auth activate-service-account user-gke-service-accounts@testkubernetes-01.iam.gserviceaccount.com --key-file=secret-user-sa.json
-gcloud auth revoke user-gke-service-accounts@testkubernetes-01.iam.gserviceaccount.com
-gcloud container images list --repository=us.gcr.io/testkubernetes-01
